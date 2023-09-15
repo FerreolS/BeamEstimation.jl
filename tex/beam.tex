@@ -3,7 +3,7 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{stmaryrd}
+\usepackage{stmaryrd,url}
 \RequirePackage[hyperref,table]{xcolor}
 
 
@@ -38,7 +38,7 @@ We have $N$ points in the uv plane described by the vectors $\V u$ and $\V v$ (i
 	\end{array} \right.
 \end{equation} 
 
-The dirty beam is $h$  the Fourier transform of $\FT{h}$. One way to define the resolution of the interferometer is to compute the so called beam as FWHM of a 2D Gaussian $g$ fitted on the central peak of the dirty beam. The covariance matrix of the Gaussian $\M C$ are given by
+The dirty beam is $h$  the Fourier transform of $\FT{h}$. One way to define the resolution of the interferometer is to compute the so called beam as half-width at half-maximum of a 2D Gaussian $g$ fitted on the central peak of the dirty beam. The covariance matrix of the Gaussian $\M C$ are given by
 \begin{equation}
 	\theta =  \argmin_{\M C} \Norm{ g(\M C) - h}^2 
 \end{equation}
@@ -46,40 +46,42 @@ From  Parseval-Plancherel theorem, this can be also written in Fourier domain as
 \begin{equation}
 	\theta =  \argmin_{\M C} \Norm{\FT{g}(\M C) - \FT{h}}^2 
 \end{equation}
-where the $\FT{g}(\M C)$ is also a Gaussian of covariance matrix $\M D = \M C^{-1}$.
+where the $\FT{g}(\M C)$ is also a Gaussian of covariance matrix $\M D = \pi^2\,\M C^{-1}$.
 
 This covariance matrix $\M D$  can be approximated from the distribution of  the sampling point in the uv plane. As by construction $\Avg{\V u} = 0 $ and $\Avg{\V v} = 0$ we have:
 \begin{equation}
-	\V D = \frac{2}{2N+1}\left(
+	\M D = \frac{2}{2N+1}\left(
 		\begin{array}{ll}
 			 \sum_n u_n^2 	 &  \sum_k u_k \,v_k\\
 			 \sum_k u_k \,v_k &  \sum_n v_n^2
 		\end{array}
 	\right)
 \end{equation}
-In addition to its covariance matrix $\M C$, we can describe the beam with its principal angle $\theta$ and its full-widths at half maximum  $r_x$  and  $r_y$ along both the major and minor axes respectively.   These parameters can be extracted by the mean of the eigendecomposition:
+The $ \frac{2}{2N+1}$ factor is to  count twice all the (uv) points (due to the  symmetry of the uv plane) excepted the null frequency. 
+In addition to its covariance matrix $\M C$, we can describe the beam with its principal angle $\theta$ and its half-widths at half maximum  $r_1$  and  $r_2$ along both the major and minor axes respectively.   These parameters can be extracted by the mean of the eigendecomposition:
 \begin{equation}
 	\M D = \M Q \, \M \Lambda \, \M{Q}\T
 \end{equation}
-where $\M Q$ and $\M \Lambda$ are the matrices of eigenvectors and eigenvalues respectively. These matrices can be expressed as a function of the beam parameters:
+where $\M Q$ and $\M \Lambda$ are the matrices of eigenvectors and eigenvalues respectively. The matrix $\M \Lambda$ is a diagonal matrix that contains the eigenvalues $(\lambda_1,\lambda_2)$ that are the variances along both axis. $\M Q$ is a rotation  by the principal angle. As  $\M C = \pi^{-2}\M D^{-1}$, its eigenvalues are $ \M \Lambda^{-1}$ and major and minor axis are inverted leading to a rotation of $\pi/2$ of the principal angle. As a result, these matrices can be expressed as a function of the beam parameters using as :
 \begin{align}
-	\V Q &= \left(
+	\M Q &= \left(
 		\begin{array}{ll}
 			\cos(\pi/2 - \theta) & -\sin(\pi/2 - \theta) \\
 			\sin(\pi/2 - \theta) & \cos(\pi/2 - \theta)  
 		\end{array}
 		\right)\\
-	\V \Lambda &=  \frac{\log(2)}{2\pi^2} \left(
+	\M \Lambda &=  \frac{\log(2)}{2\pi^2} \left(
 		\begin{array}{ll}
-		r_x^{-2}	&  0\\
-		0 			&  r_y^{-2}
+		r_1^{-2}	&  0\\
+		0 			&  r_2^{-2}
 		\end{array}
 		\right)\\
 \end{align}
-The parameters are then:
+where $\frac{\sqrt{2\log(2)}}{2}$ is a factor to convert standard deviation to half-width at half-maximum.
+The beam ellipse parameters are then:
 \begin{align}
-	r_x = & \frac{\sqrt{2\log(2)}}{2\pi} \frac{1}{\sqrt{\lambda_1}}\\
-	r_y = & \frac{\sqrt{2\log(2)}}{2\pi}  \frac{1}{\sqrt{\lambda_2}}\\
+	r_1 = & \frac{\sqrt{2\log(2)}}{2\pi} \frac{1}{\sqrt{\lambda_1}}\\
+	r_2 = & \frac{\sqrt{2\log(2)}}{2\pi}  \frac{1}{\sqrt{\lambda_2}}\\
 	\theta = & \arctan\left(Q[1,1], Q[2,1]\right)
 \end{align}
 % then 
@@ -93,10 +95,10 @@ The parameters are then:
 % \end{equation}
 
 
-In OImaging, we can plot the  beam by  applying  the transformation matrix $\M T = \M{Q}\,\M \Lambda^{-1/2} $ to a circle of diameter $1$.
+In OImaging, we can plot the  beam by  applying  the transformation matrix $\M T = \frac{1}{\pi}\, \M{Q}\,\M \Lambda^{-1/2} $ to a circle of diameter $1$.
 
 
 \section{Results}
 
-See notebook
+See notebook \url{https://jovian.com/ferreols/beamexample} 
 \end{document}
