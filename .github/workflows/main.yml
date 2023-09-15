@@ -5,8 +5,8 @@ name: CI
 # Controls when the action will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
-  # push:
-  #  branches: [ master ]
+  push:
+    branches: [ master ]
   #pull_request:
   #  branches: [ master ]
 
@@ -29,7 +29,7 @@ jobs:
           root_file: beam.tex
       - run: sudo apt-get -y install pdf2svg
       - run: |
-          cd doc
+          cd tex
           pdf2svg  beam.pdf  beam.svg 1
           mkdir pdf
           mv *{.svg,.pdf} pdf/.
