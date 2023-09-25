@@ -29,6 +29,10 @@
 
 \section{Direct estimation}
 
+To prevent the use of fitting methods to estimate the beam size, the main idea is to consider that $(u,v)$ points were drawn from a 2D normal distribution. The  beam shape is extracted from the empirical covariance of this distribution.
+
+
+
 We have $N$ points in the uv plane described by the vectors $\V u$ and $\V v$ (including the null frequency  $(u,v) = (0,0)$). We can define the modulation transfer function $h$ of the interferometer  as:
 \begin{equation}
 	\hat{h}(u, v) = \left\{
