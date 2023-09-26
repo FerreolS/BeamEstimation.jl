@@ -56,8 +56,8 @@ This covariance matrix $\M D$  can be approximated from the distribution of  the
 \begin{equation}
 	\M D = \frac{2}{2N+1}\left(
 		\begin{array}{ll}
-			 \sum_n u_n^2 	 &  \sum_k u_k \,v_k\\
-			 \sum_k u_k \,v_k &  \sum_n v_n^2
+			 \sum_n u_n^2 	 &  \sum_n u_n \,v_n\\
+			 \sum_n u_n \,v_n &  \sum_n v_n^2
 		\end{array}
 	\right)
 \end{equation}
@@ -79,7 +79,7 @@ where $\M Q$ and $\M \Lambda$ are the matrices of eigenvectors and eigenvalues r
 		r_1^{-2}	&  0\\
 		0 			&  r_2^{-2}
 		\end{array}
-		\right)\\
+		\right)
 \end{align}
 where $\frac{\sqrt{2\log(2)}}{2}$ is a factor to convert standard deviation to half-width at half-maximum.
 The beam ellipse parameters are then:
